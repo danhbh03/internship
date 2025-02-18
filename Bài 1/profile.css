@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #ffffff;
+}
+h1{
+    font-size: 55px;
+}
+header{
+    width: 100%;
+    background-color: #a39393;
+    padding: 10px;
+    text-align: center;
+    font-size: 35px;
+    color: #333;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    margin-bottom: 20px;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+    background-color: aqua;
+    border-radius: 5%;
+}
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    margin-bottom:10px;
+}
+p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    margin: 20px;
+}
+nav {
+    margin-top: auto;
+    width: 100%;
+    height: 60px;
+    background: #007BFF;
+    text-align: center;
+    box-shadow: black;
+}
+nav h2 {
+    color: white;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    margin:20px;
+}
+nav a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    display: inline-block;
+    transition: background 0.3s;
+}
+nav:hover {
+    height: fit-content; /* Mở rộng */
+}
+nav ol {
+    list-style: none;
+    padding: 10px;
+}
+nav ol li {
+    margin: 20px 0;
+}
+nav ol li a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    padding: 5px;
+    transition: background 0.3s;
+}
+nav ol li a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+nav ol li {
+    opacity: 0;
+}
+
+nav:hover ol li {
+    opacity: 1;
+}
+nav a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+nav a.active {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+@media (min-width: 600px) {
+    nav {
+        display: none;
+    }
+}
+div.avatar {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+div.avatar img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid #007BFF;
+}
