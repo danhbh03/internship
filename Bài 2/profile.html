@@ -25,8 +25,9 @@
         <br>
         <section id="avatar">
             <div class="avatar">
-                <img src="./img/avatar/avt.png" alt="Ảnh đại diện">
+                <img id="avatar-display" src="./img/avatar/avt.png" alt="Ảnh đại diện" style="cursor: pointer;" >
             </div>
+            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
         </section>
         <section id="fullname">
             <h2>Họ và tên</h2>
@@ -45,7 +46,11 @@
             <p>Nghe nhạc</p>
             <p>Chơi game: Honkai Star Rail, Zenless Zone Zero</p>
         </section>
+        
     </main>
-    
+    <fieldset id="add">
+        <button id="add-hobby">Thêm</button>
+    </fieldset>
+    <script src="profile.js"></script>
 </body>
 </html>

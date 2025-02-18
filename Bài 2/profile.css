@@ -29,8 +29,8 @@ main {
     border-radius: 5%;
 }
 h2 {
-    display: flex;
-    align-items: center;
+    width: fit-content;
+    justify-self: center;
     justify-content: center;
     color: black;
     font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
@@ -65,9 +65,10 @@ nav a {
     font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     display: inline-block;
     transition: background 0.3s;
+    
 }
 nav:hover {
-    height: fit-content; /* Mở rộng */
+    height: fit-content;
 }
 nav ol {
     list-style: none;
@@ -102,10 +103,6 @@ nav a:hover {
     background: #8a8a8a;
     border-radius: 5px;
 }
-nav a.active {
-    background: #8a8a8a;
-    border-radius: 5px;
-}
 @media (min-width: 600px) {
     nav {
         display: none;
@@ -123,4 +120,33 @@ div.avatar img {
     height: 200px;
     border-radius: 50%;
     border: 5px solid #007BFF;
+}
+div.avatar:hover {
+    filter: blur(5px);
+}
+#hobby h2 {
+    width: fit-content;
+    justify-self: center;
+}
+#hobby h2:hover {
+    background: #8a8a8a;
+    border-radius: 5px;
+}
+#add {
+    flex-direction: row;
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #8a8a8a;
+    display: none;
+}
+#add button {
+    color: #ffffff;
+    background: #007BFF;
+    margin: 10px;
+    border-radius: 5px;
 }
