@@ -40,17 +40,19 @@
                 Mình nhìn chung thì khá là hòa đồng, có thể kết bạn và nói chuyện với đa số mọi người, điểm trừ là nhớ tên kém. 
                 Còn trong công việc thì mình khá là năng động, tích cực tuy nhiên hay tự phức tạp hóa một số vấn đề.</p>
         </section>
-        <section id = "hobby">
-            <h2>Sở thích</h2>
-            <p>Xem phim kinh dị và phim hành động</p>
-            <p>Nghe nhạc</p>
-            <p>Chơi game: Honkai Star Rail, Zenless Zone Zero</p>
+        <section >
+            <h2 id = "hobby">Sở thích</h2>
+            <input type="text" id="hobby-input" placeholder="Nhập sở thích của bạn">
+            <button id="add-hobby">Thêm</button>
+            <button id="change-hobby" onclick="changeHobby()">Sửa</button>
+            <button id="remove-hobby" onclick="deleteHobby()">Xóa</button>
+            <div>
+                <ul id="hobby-list">
+                </ul>
+            </div>
         </section>
         
     </main>
-    <fieldset id="add">
-        <button id="add-hobby">Thêm</button>
-    </fieldset>
     <script src="profile.js"></script>
 </body>
 </html>

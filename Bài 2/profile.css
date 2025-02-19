@@ -124,29 +124,75 @@ div.avatar img {
 div.avatar:hover {
     filter: blur(5px);
 }
-#hobby h2 {
+
+h2#hobby {
     width: fit-content;
     justify-self: center;
+    color: #000;
 }
-#hobby h2:hover {
-    background: #8a8a8a;
-    border-radius: 5px;
+h2#hobby:hover {
+    color: #8a8a8a;
 }
-#add {
-    flex-direction: row;
-    align-items: center;
-    justify-self: center;
-    justify-content: center;
-    width: fit-content;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    background: #8a8a8a;
+#add-hobby {
     display: none;
-}
-#add button {
     color: #ffffff;
     background: #007BFF;
     margin: 10px;
     border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#hobby-input {
+    display: none;
+    margin: 10px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#hobby-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px;
+}
+#hobby-list{
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+    text-align: center; 
+}
+
+#hobby-list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    margin: 10px;
+}
+#remove-hobby {
+    display: none;
+    color: #ffffff;
+    background: #ff0000;
+    margin: 10px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#change-hobby {
+    display: none;
+    color: #ffffff;
+    background: #b300ff;
+    margin: 10px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#add-hobby:hover {
+    background: #0056b3;
+}
+#remove-hobby:hover {
+    background: #b30000;
+}
+#change-hobby:hover {
+    background: #660066;
 }
