@@ -5,11 +5,17 @@ body {
     background-attachment: scroll;
     background-position: center top;
 }
+div{
+    margin-bottom: 2vw;
+    font-size: 3vw;
+    color: #004080;
+}
 header {
     display: flex;
     justify-content: center;
     align-items: center;
     align-self: center;
+    font-size: 4vw;
     margin-top: 10vw;
     color: #000;
 }
@@ -30,9 +36,9 @@ div.form-group label {
 div.form-group input {
     width: 100%;
     margin-top: 3vw;
-    margin-bottom: 3vw;
+    margin-bottom: 1vw;
     font-size: 3vw;
-    border-radius: 10px;
+    border-radius: 1vw;
     border: 1px solid black;
 }
 button {
@@ -43,8 +49,18 @@ button {
     margin-left: auto;
     margin-right: auto;
     font-size: 3vw;
-    border-radius: 10px;
+    border-radius: 1vw;
     border: 1px solid black;
     background-color: #004080;
     color: white;
+}
+.error {
+    display: none;
+    color: red;
+    font-size: 2vw;
+    margin-bottom: 3vw;
+}
+#notice{
+    color: #000;
+    font-size: 2vw;
 }

@@ -6,35 +6,43 @@
     <meta name="description" content="Trang form để nhập thông tin nhân viên bao gồm các trường Họ tên, Ngày sinh, Số diện thoại, Email, Giới tính và Địa chỉ">
     <title>Trang nhập thông tin nhân viên</title>
     <link rel="stylesheet" href="form.css">
-    <link rel="icon" href="./img/favicon.png" type="image/x-icon">
+    <link rel="icon" href="./img/favicon.jpg" type="image/x-icon">
 </head>
 <body>
+    <script src="form.js"></script>
     <header>
         <h1>Thông tin nhân viên</h1>
     </header>
     <main>
         <form>
             <div class="form-group">
-                <label for="name">Họ tên:</label>
-                <input type="text" id="name" name="name" required>
+                <label for="name">Họ tên: <span style="color: red;">*</span></label>
+                <input type="text" id="name" name="name" onkeyup="validateName()" required >
+                <span id="name-error" class="error"></span>
                 <br>
-                <label for="dob">Ngày sinh:</label>
-                <input type="date" id="dob" name="dob" required>
+                <label for="dob">Ngày sinh: <span style="color: red;">*</span></label>
+                <input type="date" id="dob" name="dob" onchange="validateDOB()" required>
+                <span id="dob-error" class="error"></span>
                 <br>
                 <label for="phone">Số điện thoại:</label>
-                <input type="tel" id="phone" name="phone" required>
+                <input type="tel" id="phone" name="phone" onkeyup="validatePhone()">
+                <span id="phone-error" class="error"></span>
                 <br>
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" onkeyup="validateEmail()">
+                <span id="email-error" class="error"></span>
                 <br>
-                <label for="gender">Giới tính:</label>
-                <input type="text" id="gender" name="gender" required>
+                <label for="gender">Giới tính: <span style="color: red;">*</span></label>
+                <input type="text" id="gender" name="gender" onkeyup="validateGender()" required>
+                <span id="gender-error" class="error"></span>
                 <br>
                 <label for="address">Địa chỉ:</label>
-                <input type="text" id="address" name="address" required>
+                <input type="text" id="address" name="address" onkeyup="validateAddress()">
+                <span id="address-error" class="error"></span>
             </div>
-            <button type="submit">Gửi</button>
+            <div id="notice"><span style="color: red;">*</span> là trường bắt buộc</div>
         </form>
     </main>
+    
 </body>
 </html>
