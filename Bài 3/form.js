@@ -82,10 +82,10 @@ function validateGender() {
 
     if (!validGenders.includes(genderValue)) {
         document.getElementById("gender-error").innerHTML= "Giới tính không hợp lệ. Vui lòng nhập Nam, Nữ hoặc Khác.";
-        document.getElementById("gender-error").display = "block";
+        document.getElementById("gender-error").style.display = "block";
     }else {
         document.getElementById("gender-error").innerHTML = "";
-        document.getElementById("gender-error").display = "none";
+        document.getElementById("gender-error").style.display = "none";
         NhanVien.gender = genderValue;
         fullValidate()
     }
