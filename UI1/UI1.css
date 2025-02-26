@@ -1,12 +1,11 @@
-/* Căn giữa khung login và giới hạn kích thước */
+
 #login {
     height: fit-content;
     background-color: #f7f7f7 !important;
-    border-radius: 10px; /* Bo góc mềm mại */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    border-radius: 10px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Căn giữa nội dung trang */
 .container {
     display: flex;
     justify-content: center;
@@ -14,15 +13,13 @@
     min-height: 100vh;
 }
 
-/* Logo nhỏ gọn, không bị to quá */
 #logo img {
-    max-width: 100px; /* Giới hạn kích thước */
+    max-width: 100px; 
     height: auto;
     display: block;
     margin: 0 auto;
 }
 
-/* Tiêu đề */
 #title {
     text-align: center;
     font-size: 2vh;
@@ -31,14 +28,11 @@
     margin-bottom: 10px;
 }
 
-/* Bản quyền */
 .copyright {
     color: #e7e7e7;
     font-size: 8px;
     text-align: left;
 }
-
-/* Nội dung OTP */
 #sent-to {
     display: block;
     color: #404040;
@@ -47,15 +41,13 @@
     text-align: center;
 }
 
-/* Nhóm nhập OTP */
 #otp-inputs {
     display: flex;
     justify-content: center;
-    gap: 8px; /* Tạo khoảng cách nhỏ hơn giữa các ô nhập */
+    gap: 8px; 
     margin-top: 10px;
 }
 
-/* Các ô nhập OTP (kích thước nhỏ hơn) */
 .otp-input {
     width: 25px;
     height: 25px;
@@ -67,7 +59,6 @@
     outline: none;
 }
 
-/* Màn hình nhỏ (dưới 576px - điện thoại) */
 @media (max-width: 576px) {
     .otp-input {
         width: 28px;
@@ -76,7 +67,6 @@
     }
 }
 
-/* Màn hình trung bình (576px - 992px - tablet) */
 @media (min-width: 576px) and (max-width: 992px) {
     .otp-input {
         width: 30px;
@@ -85,7 +75,6 @@
     }
 }
 
-/* Màn hình lớn (trên 992px - laptop, PC) */
 @media (min-width: 992px) {
     .otp-input {
         width: 30px;
@@ -93,14 +82,11 @@
         font-size: 17px;
     }
 }
-
-
 .otp-input:focus {
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Nút đăng nhập */
 .login-btn {
     color: #fff;
     background-color: #155ed1;
@@ -118,10 +104,16 @@
 .btn-primary{
     margin-bottom: 5px;
 }
+main {
+    flex-grow: 1;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
 .bottom-copyright {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     text-align: center;
     color: #e7e7e7;

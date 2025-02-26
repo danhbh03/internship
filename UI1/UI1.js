@@ -54,10 +54,9 @@ function English() {
     vieBtn.classList.remove("activating");
 }
 function Vietnamese() {
-    OTPString
-    HotlineString
-    document.getElementById("login-btn").innerHTML = "Đăng nhập";
-    
+    OTPString()
+    HotlineString()
+    document.getElementById("login-btn").innerHTML = "Đăng nhập";  
     let engBtn = document.getElementById("English"); 
     let vieBtn = document.getElementById("Vietnamese");
     vieBtn.innerHTML = "Tiếng Việt";
