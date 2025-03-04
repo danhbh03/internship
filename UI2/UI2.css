@@ -110,10 +110,6 @@
 .btn-primary{
     margin-bottom: 5px;
 }
-main {
-    flex-grow: 1;
-}
-
 footer {
     width: 100%;
     text-align: center;

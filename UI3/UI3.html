@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang đổi ảnh dicom MINEVAR PACS</title>
+    <link rel="stylesheet" href="UI3.css">
+    <link rel="icon" href="./img/transparent-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100 ">
+    <header class="container d-flex align-items-center justify-content-left min-vw-100">
+        <img src="./img/transparent-logo.png" class="img-fluid logo-img" alt="logo">
+        <p id="title">MINEVAR PACS</p>
+        <br>
+        <div class="ms-auto d-flex">
+            <div class="btn-group" role="group">
+                <button class="btn icon-btn activating" id="folder" onclick="changeFolderActivation()"><img src="./img/transparent-folder.png" class="img-fluid icon" alt="folder-icon"></button>
+                <button class="btn icon-btn inactivating" id="lib" onclick="changeLibActivation()"><img src="./img/transparent-lib.png" class="img-fluid icon" alt="lib-icon"></button>
+            </div>
+            <div class="btn-group" role="group">
+                <button class="btn icon-btn activating" id="fullscreen" onclick="changeFullscreenActivation()"><img src="./img/transparent-fullscreen.png" class="img-fluid icon" alt="fullscreen-icon"></button>
+                <button class="btn icon-btn inactivating" id="splitscreen" onclick="changeSplitscreenActivation()"><img src="./img/transparent-splitscreen.png" class="img-fluid icon" alt="splitscreen-icon"></button>
+            </div>
+            <div class="btn-group" role="group">
+                <button class="btn icon-btn inactivating" id="dashboard" onclick="changeDashboardActivation()"><img src="./img/transparent-dashboard.png" class="img-fluid icon" alt="dashboard-icon"></button>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="menu" data-bs-toggle="dropdown" aria-expanded="false">
+                    Master (K1, K2)
+                </button>
+                <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="menu">
+                    <li><a class="dropdown-item" onclick="swapOption(this)">Option 1</a></li>
+                    <li><a class="dropdown-item" onclick="swapOption(this)">Option 2</a></li>
+                    <li><a class="dropdown-item" onclick="swapOption(this)">Option 3</a></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="menu" data-bs-toggle="dropdown" aria-expanded="false">
+                    Bs. Nguyễn Mạnh Hà
+                </button>
+                <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="menu">
+                    <li><a class="dropdown-item">Thông tin cá nhân</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item">Đăng xuất</a></li>
+                </ul>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>            
+        </div> 
+    </header>
+    <main class="container d-flex flex-column align-items-center justify-content-center min-vw-100">
+        <div class="container file-upload min-vw-100">
+            <div id="drop-area" class="drop-area">
+                <input type="file" id="fileInput" class="hidden-input" accept=".dcm">
+                <button class="btn btn-primary" id="chooseFileBtn">Chọn ảnh</button>
+                <p>hoặc</p>
+                <p>Kéo thả file, thư mục ảnh DICOM</p>
+            </div>
+        </div>
+        <div class="container note-list">
+            <p class="notification">- Chức năng hỗ trợ tốt trên trình duyệt Chrome hoặc Cốc cốc</p>
+            <p class="notification">- Giải nén thư mục chứa ảnh dicom trước khi tải lên</p>
+            <p class="notification">- Chọn Tự động xóa nếu không muốn lưu trữ lâu dài trên PACS</p>
+        </div>
+        <div class="container table-header min-vw-100">
+            <nav class="navbar navbar-expand-sm">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="nav-button btn btn-default nav-active" id="case-list">Danh sách ca</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-button btn btn-default nav-inactive" id="error-list">Lỗi</button>
+                    </li>
+                </ul>
+            </nav>
+            <div class="container d-flex flex-row table-page min-vw-100 nav-active">
+                <button class="btn btn-default left" onclick="decrease()"><</button>
+                <button class="btn btn-default right" onclick="increase()">></button>
+                <p style="margin-left: 15px;">Trang</p>
+                <div class="dropdown page">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="current-page" data-bs-toggle="dropdown" aria-expanded="false">
+                        1
+                    </button>
+                    <ul class="dropdown-menu" id="page-list" aria-labelledby="page-menu">
+                    </ul>
+                </div>
+                <p style="margin-left: 15px;">Hiển thị</p>
+                <div class="dropdown per-page">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="per-page" data-bs-toggle="dropdown" aria-expanded="false">
+                        100
+                    </button>
+                    <ul class="dropdown-menu" id="per-page-menu" aria-labelledby="per-page">
+                        <li><a class="dropdown-item" onclick="pageSwapOption(this)">50</a></li>
+                        <li><a class="dropdown-item" onclick="pageSwapOption(this)">150</a></li>
+                        <li><a class="dropdown-item" onclick="pageSwapOption(this)">200</a></li>
+                    </ul>
+                </div>
+                <p id="unit">ca</p>
+                <p id="total-case" style="margin-left: 15px;">Tổng số ca:</p>
+            </div>
+        </div>
+        <div class="container table-container min-vw-100">
+            <table class="table table-striped min-vw-100">
+                <thead>
+                    <tr>
+                        <th>Tên bệnh nhân</th>
+                        <th>Mã bệnh nhân</th>
+                        <th>Năm sinh</th>
+                        <th>Giới tính</th>
+                        <th><!--<button class="btn btn-default">-->Ngày/Giờ chụp<!--</button>--></th> 
+                        <th><!--<button class="btn btn-default">-->Dịch vụ<!--</button>--></th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </div>  
+    </main>
+    <script src="UI3.js"></script>
+</body>
