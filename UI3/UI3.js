@@ -1,23 +1,25 @@
 function changeFolderActivation() {
-    const folder=document.getElementById("folder");
-    const lib=document.getElementById("lib");
-    if(folder.classList.contains("inactivating")){
-        folder.classList.remove("inactivating");
-        folder.classList.add("activating");
-        lib.classList.remove("activating");
-        lib.classList.add("inactivating");
-    }
+    // const folder=document.getElementById("folder");
+    // const lib=document.getElementById("lib");
+    // if(folder.classList.contains("inactivating")){
+    //     folder.classList.remove("inactivating");
+    //     folder.classList.add("activating");
+    //     lib.classList.remove("activating");
+    //     lib.classList.add("inactivating");
+    // }
+    
 }
 
 function changeLibActivation() {
-    const folder=document.getElementById("folder");
-    const lib=document.getElementById("lib");
-    if(lib.classList.contains("inactivating")){
-        lib.classList.remove("inactivating");
-        lib.classList.add("activating");
-        folder.classList.remove("activating");
-        folder.classList.add("inactivating");
-    }
+    // const folder=document.getElementById("folder");
+    // const lib=document.getElementById("lib");
+    // if(lib.classList.contains("inactivating")){
+    //     lib.classList.remove("inactivating");
+    //     lib.classList.add("activating");
+    //     folder.classList.remove("activating");
+    //     folder.classList.add("inactivating");
+    // }
+    window.location.href = "../UI5/UI5.html";
 }
 
 function changeFullscreenActivation() {

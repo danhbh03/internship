@@ -32,10 +32,10 @@ main{
     align-items: center;
     justify-content: center;
 }
-.btn.activating{
+.btn.inactivating{
     background-color: #c5c5c5 !important;
 }
-.btn.inactivating{
+.btn.activating{
     background-color: #fff !important;
 }
 .btn-group{

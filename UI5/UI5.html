@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản lý bệnh nhân và ảnh dicom MINERVAR PACS</title>
+    <link rel="stylesheet" href="UI5.css">
+    <link rel="icon" href="./img/transparent-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header class="container d-flex align-items-center justify-content-left min-vw-100">
+        <img src="./img/transparent-logo.png" class="img-fluid logo-img" alt="logo">
+        <p id="title">MINERVAR PACS</p>
+        <br>
+        <div class="ms-auto d-flex">
+            <div class="btn-group" role="group">
+                <button class="btn icon-btn inactivating" id="folder" onclick="changeFolderActivation()"><img src="./img/transparent-folder.png" class="img-fluid icon" alt="folder-icon"></button>
+                <button class="btn icon-btn activating" id="lib" onclick="changeLibActivation()">
+                    <img src="./img/transparent-lib.png" class="img-fluid icon" alt="lib-icon">
+                </button>
+            </div>
+            <div class="btn-group" role="group">
+                <button class="btn icon-btn inactivating" id="fullscreen" onclick="changeFullscreenActivation()"><img src="./img/transparent-fullscreen.png" class="img-fluid icon" alt="fullscreen-icon"></button>
+                <button class="btn icon-btn activating" id="splitscreen" onclick="changeSplitscreenActivation()" data-bs-toggle="modal" data-bs-target="#myModal"><img src="./img/transparent-splitscreen.png" class="img-fluid icon" alt="splitscreen-icon"></button>
+            </div>
+            <div class="btn-group" role="group">
+                <button class="btn icon-btn activating" id="dashboard" onclick="changeDashboardActivation()"><img src="./img/transparent-dashboard.png" class="img-fluid icon dashboard-icon" alt="dashboard-icon"></button>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-default text-start align-items-center dropdown-toggle" type="button" id="office" data-bs-toggle="dropdown" aria-expanded="false">
+                    Bệnh viện K3
+                </button>
+                <ul class="dropdown-menu" id="office-list" aria-labelledby="menu">
+                    <li><a class="dropdown-item" onclick="swapOption(this,'office','office-list')">Bệnh viện K1</a></li>
+                    <li><a class="dropdown-item" onclick="swapOption(this,'office','office-list')">Bệnh viện K2</a></li>
+                    <li><a class="dropdown-item" onclick="swapOption(this,'office','office-list')">Đại học Y</a></li>   
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-button dropdown-toggle" type="button" id="info" data-bs-toggle="dropdown" aria-expanded="false">
+                    Bs. Nguyễn Mạnh Hà
+                </button>
+                <ul class="dropdown-menu" id="info-list" aria-labelledby="menu">
+                    <li><a class="dropdown-item">Thông tin cá nhân</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item">Đăng xuất</a></li>
+                </ul>
+            </div>        
+        </div> 
+    </header>
+    <main>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title">Cấu hình người dùng</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-4" id ="left-model-part">
+                                <div class="left-model-main">
+                                    <div class="custom-nav">
+                                        <p class="d-block" data-bs-toggle="collapse" data-bs-target="#danhmuc">
+                                            ▼ <img src="./img/transparent-folder.png" class="img-fluid icon" alt="folder-icon"> Danh mục
+                                        </p>
+                                    </div>
+                                    <div id="danhmuc" class="collapse show ms-3">
+                                        <p class="d-block" data-bs-toggle="collapse" data-bs-target="#tenfilter">
+                                            ▼ <img src="./img/transparent-folder.png" class="img-fluid icon" alt="folder-icon"> Tên filter
+                                        </p>
+                                        <div id="tenfilter" class="collapse show ms-3">
+                                            <img src="./img/transparent-file.png" class="img-fluid file-icon" alt="file-icon"> Tên filter
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="col-8" id = "right-model-part">
+                                <div class="container-fluid">
+                                    <div class="right-model-main d-flex flex-column">
+                                        <div class="anouncement">
+                                            <p>Thông báo</p>
+                                            <div class="dropdown anouncement-dropdown">
+                                                <button class="btn btn-default text-left d-flex align-items-center w-100 dropdown-toggle" type="button" id="anouncement-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Value
+                                                </button>
+                                                <ul class="dropdown-menu" id="anouncement-list" aria-labelledby="menu">
+                                                    <li><a class="dropdown-item" onclick="swapOption(this,'anouncement-dropdown','anouncement-list')">Value 1</a></li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><a class="dropdown-item" onclick="swapOption(this,'anouncement-dropdown','anouncement-list')">Value 2</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="proportion-header">
+                                            <p>Chia đôi màn hình</p>
+                                        </div>
+                                        <div class="row proportion-body">
+                                            <div class="col-4 d-flex flex-column align-items-center">
+                                                <div class="btn-group w-100 proportion-btn-group" role="group" onclick="changeOption(this)">
+                                                    <button type="button" class="btn proportion-btn col-8" id="60-40">Danh sách</button>
+                                                    <button type="button" class="btn proportion-btn col-4" id="60-40">Viewer</button>
+                                                </div>
+                                                <p class="proportion">Tỷ lệ 60:40</p>
+                                            </div>
+                                      
+                                            <div class="col-4 d-flex flex-column align-items-center">
+                                                <div class="btn-group w-100 proportion-btn-group" role="group" onclick="changeOption(this)">
+                                                    <button type="button" class="btn proportion-btn col-6" id="50-50">Danh sách</button>
+                                                    <button type="button" class="btn proportion-btn col-6" id="50-50">Viewer</button>
+                                                </div>
+                                                <p class="proportion">Tỷ lệ 50:50</p>
+                                            </div>
+                                        
+                                            <div class="col-4 d-flex flex-column align-items-center">
+                                                <div class="btn-group w-100 proportion-btn-group" role="group" onclick="changeOption(this)">
+                                                    <button type="button" class="btn proportion-btn col-4 activation" id="40-60">Danh sách</button>
+                                                    <button type="button" class="btn proportion-btn col-8 activation" id="40-60">Viewer</button>
+                                                </div>
+                                                <p class="proportion active-text">Tỷ lệ 40:60</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn accept-btn" onclick="changeProportion()" data-bs-dismiss="modal">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container min-vw-100">
+            <div class="row ">
+                <div class="col-2 h-100" id ="left-part">
+                    <div class="d-flex justify-content-between align-items-center left-header">
+                        <p class="mb-0 fw-bold">Cây làm việc</p>
+                        <button class="btn" onclick="changeFullscreenActivation()">
+                            &lt;
+                        </button>
+                    </div>                      
+                    <div class="left-main">
+                        <div class="row">
+                            <ul class="nav nav-tabs nav-justified custom-tab" id="left-tab" role="tablist">
+                                <li class="nav-item flex-fill">
+                                    <a class="nav-link active" id="filter-tab-left" href="#filter" data-bs-toggle="tab" role="tab">Bộ lọc</a>
+                                </li>
+                                <li class="nav-item flex-fill">
+                                    <a class="nav-link" id="store-tab-left" href="#store" data-bs-toggle="tab" role="tab">Lưu trữ</a>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content border border-top-0">
+                                <div class="tab-pane p-3 fade show active" id="filter" role="tabpanel">
+                                    <div class="custom-nav">
+                                        <p class="collapse show d-block" data-bs-toggle="collapse" data-bs-target="#danhmuc">
+                                            ▼ <img src="./img/transparent-folder.png" class="img-fluid icon" alt="folder-icon"> Danh mục
+                                        </p>
+                                    </div>
+                                    <div id="danhmuc" class="collapse show">
+                                        <p class="d-block ms-3" data-bs-toggle="collapse" data-bs-target="#tenfilter">
+                                            ▼ <img src="./img/transparent-folder.png" class="img-fluid icon" alt="folder-icon"> Tên filter
+                                        </p>
+                                        <div id="tenfilter" class="collapse show ms-3">
+                                            <img src="./img/transparent-file.png" class="img-fluid file-icon" alt="file-icon"> Tên filter
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="tab-pane p-3 fade" id="store" role="tabpanel">
+                                    Nội dung lưu trữ
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <ul class="nav nav-tabs custom-tab">
+                            <li class="nav-item flex-fill">
+                                <a class="nav-link active" href="#infomation" data-bs-toggle="tab">Thông tin ca</a>
+                            </li>
+                            <li class="nav-item flex-fill">
+                                <a class="nav-link" href="#brief" data-bs-toggle="tab">Xem trước</a>
+                            </li>
+                            <li class="nav-item flex-fill">
+                                <a class="nav-link" href="#history" data-bs-toggle="tab">Lịch sử</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content border border-top-0">
+                            <div class="tab-pane fade show active" id="infomation" role="tabpanel">
+                                    <div class="para">
+                                        <p class="fw-bold">THÔNG TIN BỆNH NHÂN</p>
+                                        <p>PID:        053588656</p>
+                                        <p>Họ và tên:  Nguyễn Thị Thảo</p>
+                                        <p>Năm Sinh:   1942</p>
+                                    </div>
+                                    <hr class="border border-secondary border-1 opacity-50 spliter">
+                                    <div class="para">
+                                        <p class="fw-bold">THÔNG TIN CA</p>
+                                        <p>Ngày chụp: 22/11/2018 09:33</p>
+                                        <p>Bộ phận:   HEAD</p>
+                                        <p>Ghi chú:   CCM NAO CRNN</p>
+                                        <p>Máy chụp:  CT204</p>
+                                    </div>
+                                    <hr class="border border-secondary border-1 opacity-50 spliter">
+                                    <div class="para">
+                                        <p class="fw-bold">YÊU CẦU CHẨN ĐOÁN</p>
+                                        <div class="info-list" style="width: 100%;">
+                                            <div class="d-flex mb-2">
+                                              <div class="label me-2 fw-normal">Ưu tiên:</div>
+                                              <div class="value text-danger fw-bold">CC</div>
+                                            </div>
+                                            
+                                            <div class="d-flex mb-2">
+                                              <div class="label me-2 fw-normal">CĐ lâm sàng:</div>
+                                              <div class="value">J18 - Viêm phổi, tác nhân không đặc hiệu</div>
+                                            </div>
+                                            
+                                            <div class="d-flex mb-2">
+                                              <div class="label me-2 fw-normal">Bác sĩ chỉ định:</div>
+                                              <div class="value">Bs. Nguyễn Thị Cúc<br>(Nội Tiết - Hô Hấp)</div>
+                                            </div>
+                                            
+                                            <div class="d-flex mb-2">
+                                              <div class="label me-2 fw-normal">Chỉ định:</div>
+                                              <div class="value">
+                                                    A - Chụp CLVT tầng trên ổ bụng có khảo sát mạch các tạng [bao gồm mạch: gan, tụy, lách và mạch khối u] [từ 1-32 dãy]
+                                              </div>
+                                            </div>
+                                          </div>    
+                                    </div>
+                                    <div class="para">
+                                        <p class="fw-bold">YÊU CẦU CHẨN ĐOÁN</p>
+                                        <div class="info-list" style="width: 100%;">
+                                            <div class="d-flex mb-2">
+                                              <div class="label me-2 fw-normal">Ưu tiên:</div>
+                                              <div class="value text-danger fw-bold">CC</div>
+                                            </div>
+                                            
+                                            <div class="d-flex mb-2">
+                                              <div class="label me-2 fw-normal">CĐ lâm sàng:</div>
+                                              <div class="value">J18 - Viêm phổi, tác nhân không đặc hiệu</div>
+                                            </div>
+                                            
+                                            <div class="d-flex mb-2">
+                                              <div class="label me-2 fw-normal">Bác sĩ chỉ định:</div>
+                                              <div class="value">Bs. Nguyễn Thị Cúc<br>(Nội Tiết - Hô Hấp)</div>
+                                            </div>
+                                            
+                                            <div class="d-flex mb-2">
+                                              <div class="label me-2 fw-normal">Chỉ định:</div>
+                                              <div class="value">
+                                                    A - Chụp CLVT tầng trên ổ bụng có khảo sát mạch các tạng [bao gồm mạch: gan, tụy, lách và mạch khối u] [từ 1-32 dãy]
+                                              </div>
+                                            </div>
+                                          </div>    
+                                    </div>
+                            </div>
+                            <div class="tab-pane fade" id="brief" role="tabpanel">
+                                <p>Xem trước nội dung</p>
+                            </div>
+                            <div class="tab-pane fade" id="history" role="tabpanel">
+                                <p>Lịch sử hoạt động</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-10" id = "right-part">
+                    <div class="right-header">
+                        <p>Danh sách ca</p>
+                    </div>
+                    <div class="right-main">
+                        <div class="container-fluid table-header w-100">
+                            <div class="container d-flex flex-row table-page w-100">
+                                <div class="container-fluid header-container">
+                                    <div class="row g-3 header-filter-container ">
+                            
+                                        <div class="header-filter-item col-auto flex-column">
+                                            <label for="maBN">Mã bệnh nhân</label>
+                                            <input type="text" class="form-control bg-light" id="maBN" placeholder="Nhập mã bệnh nhân">
+                                        </div>
+                            
+                                        <div class="header-filter-item col-auto flex-column">
+                                            <label for="tenBN">Tên bệnh nhân</label>
+                                            <input type="text" class="form-control bg-light" id="tenBN" placeholder="Nhập tên bệnh nhân">
+                                        </div>
+                            
+                                        <div class="header-filter-item col-auto flex-column">
+                                            <label for="trangThai">Trạng thái</label>
+                                            <select class="form-select bg-light" id="trangThai">
+                                                <option>Tất cả</option>
+                                                <option>Đã duyệt</option>
+                                                <option>Chưa duyệt</option>
+                                            </select>
+                                        </div>
+                            
+                                        <div class="header-filter-item col-auto flex-column">
+                                            <label for="ngayChup">Ngày chụp</label>
+                                            <input type="text" class="form-control bg-light" id="ngayChup" placeholder="01/01/2018 - 01/01/2019">
+                                        </div>
+                            
+                                        <div class="header-filter-item col-auto flex-column">
+                                            <label for="ketQuaDoc">Kết quả đọc</label>
+                                            <input type="text" class="form-control bg-light" id="ketQuaDoc" placeholder="Kết quả">
+                                        </div>
+                            
+                                        <div class="col-auto d-flex align-items-end">
+                                            <button class="btn btn-secondary me-2" id="btn-header">Làm mới</button>
+                                            <button class="btn btn-primary" id="btn-header">Nâng cao</button>
+                                        </div>
+                            
+                                    </div>
+                            
+                                    <!-- Dòng 2 -->
+                                    <div class="row g-3 mt-2 header-filter-container">
+                            
+                                        <div class="header-filter-item col-auto flex-column">
+                                            <label for="namSinh">Năm sinh</label>
+                                            <select class="form-select bg-light" id="namSinh">
+                                                <option>1990</option>
+                                                <option>1995</option>
+                                            </select>
+                                        </div>
+                            
+                                        <div class="header-filter-item col-auto flex-column">
+                                            <label for="gioiTinh">Giới tính</label>
+                                            <select class="form-select bg-light" id="gioiTinh">
+                                                <option>Nam</option>
+                                                <option>Nữ</option>
+                                            </select>
+                                        </div>
+                            
+                                        <div class="header-filter-item col-auto flex-column">
+                                            <label for="loaiChup">Loại chụp</label>
+                                            <select class="form-select bg-light" id="loaiChup">
+                                                <option>Tất cả</option>
+                                                <option>X-Quang</option>
+                                                <option>CT-Scan</option>
+                                            </select>
+                                        </div>
+                            
+                                    </div>
+                                </div>      
+                            </div>
+                            <div class="container d-flex flex-row table-page w-100">
+                                <button class="btn btn-default left" onclick="decrease()"><</button>
+                                <button class="btn btn-default right" onclick="increase()">></button>
+                                <p style="margin-left: 15px;">Trang</p>
+                                <div class="dropdown page">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="current-page" data-bs-toggle="dropdown" aria-expanded="false">
+                                        1
+                                    </button>
+                                    <ul class="dropdown-menu" id="page-list" aria-labelledby="page-menu">
+                                    </ul>
+                                </div>
+                                <p style="margin-left: 15px;">Hiển thị</p>
+                                <div class="dropdown per-page">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="per-page" data-bs-toggle="dropdown" aria-expanded="false">
+                                        100
+                                    </button>
+                                    <ul class="dropdown-menu" id="per-page-menu" aria-labelledby="per-page">
+                                        <li><a class="dropdown-item" onclick="pageSwapOption(this)">50</a></li>
+                                        <li><a class="dropdown-item" onclick="pageSwapOption(this)">150</a></li>
+                                        <li><a class="dropdown-item" onclick="pageSwapOption(this)">200</a></li>
+                                    </ul>
+                                </div>
+                                <p id="unit">ca</p>
+                                <p id="total-case" style="margin-left: 15px;">Tổng số ca:</p>
+                            </div>
+                        </div>
+                        <div class="container-fluid table-container w-100">
+                            <table class="table table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="form-check d-flex align-items-center">
+                                                <input 
+                                                    class="form-check-input me-2" 
+                                                    type="checkbox" 
+                                                    id="selectAll" 
+                                                    onclick="selectAll()"
+                                                >
+                                                <label class="form-check-label" for="selectAll">Trạng thái</label>
+                                            </div>
+                                        </th>
+                                        <th>Tên bệnh nhân</th>
+                                        <th>Mã bệnh nhân</th>
+                                        <th>Năm sinh</th>
+                                        <th>Giới tính</th>
+                                        <th>TT bổ sung</th>
+                                        <th><!--<button class="btn btn-default">-->Ngày/Giờ chụp<!--</button>--></th> 
+                                        <th><!--<button class="btn btn-default">-->Dịch vụ<!--</button>--></th>
+                                        <th>Modality</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="container-fluid second-table-header w-100">
+                            <div class="container d-flex flex-row table-title w-100">
+                                <p class="fw-bold">Ca liên quan</p>
+                            </div>
+                        </div>
+                        <div class="container-fluid second-table-container w-100">
+                            <table class="table table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="form-check d-flex align-items-center">
+                                                <input 
+                                                    class="form-check-input me-2" 
+                                                    type="checkbox" 
+                                                    id="selectAll" 
+                                                    onclick="selectAll()"
+                                                >
+                                                <label class="form-check-label" for="selectAll">Trạng thái</label>
+                                            </div>
+                                        </th>
+                                        <th>Tên bệnh nhân</th>
+                                        <th>Mã bệnh nhân</th>
+                                        <th>Năm sinh</th>
+                                        <th>Giới tính</th>
+                                        <th>TT bổ sung</th>
+                                        <th><!--<button class="btn btn-default">-->Ngày/Giờ chụp<!--</button>--></th> 
+                                        <th><!--<button class="btn btn-default">-->Dịch vụ<!--</button>--></th>
+                                        <th>Modality</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="second-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="container-fluid w-100" id="functions">
+                            <div class="d-flex gx-2 gy-2" style="gap: 10px!important;padding-top: 1% !important;padding-bottom: 2% !important;">
+                                <div class="text-center funtion-container">
+                                    <button class="btn btn-light d-flex align-items-center justify-content-center function-btn" id="accept" disabled>
+                                        <i class="fa-solid fa-file-lines"></i>
+                                    </button>                                    
+                                    <p class="sub-text m-0">Nhận ca</p>
+                                </div>
+                                <div class="spliter"></div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="show-img" disabled >
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Xem ảnh<br><small>Alt+V</small></p>
+                                </div>
+                        
+                                <!-- Chụp ảnh -->
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="take-img" disabled >
+                                        <i class="fa-solid fa-camera"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Chụp ảnh</p>
+                                </div>
+                        
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="img-link" disabled >
+                                        <i class="fa-solid fa-link"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Link ảnh</p>
+                                </div>
+                                <div class="spliter"></div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="addCD" disabled>
+                                        <i class="fa-solid fa-plus"></i>
+                                        
+                                    </button>
+                                    <p class="sub-text m-0">Thêm CĐ<br><small>Alt+N</small></p>
+                                </div>
+                        
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="confirm" disabled>
+                                        <i class="fa-solid fa-file-circle-check"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Duyệt CĐ<br><small>Alt+C</small></p>
+                                </div>
+                                
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="saveCD" disabled>
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Lưu nháp<br><small>Alt+D</small></p>
+                                </div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="change-predict" disabled>
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Sửa CĐ<br><small>Alt+E</small></p>
+                                </div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="cancel-lock" disabled>
+                                        <i class="fa-solid fa-lock-open"></i>   
+                                    </button>
+                                    <p class="sub-text m-0">Hủy khóa<br><small>Alt+C</small></p>
+                                </div>
+                                <div class="spliter"></div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="print" disabled>
+                                        <i class="fa-solid fa-print"></i>
+                                    </button>
+                                    <p class="sub-text m-0">In<br></p>
+                                </div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn d-flex flex-column align-items-center justify-content-center function-btn" id="print-and-confirm" disabled>
+                                        <i class="fa-solid fa-print"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Duyệt và in<br></p>
+                                </div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="quick-print" disabled>
+                                        <i class="fa-solid fa-print"></i>
+                                    </button>
+                                    <p class="sub-text m-0">In nhanh<br></p>
+                                </div>
+                                <div class="spliter"></div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="add-facility" disabled>
+                                        <i class="fa-solid fa-cube"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Thêm vật tư<br></p>
+                                </div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="change-case" disabled>
+                                        <i class="fa-solid fa-arrow-right-arrow-left"></i> 
+                                    </button>
+                                    <p class="sub-text m-0">Chuyển ca<br><small>Alt+C</small></p>
+                                </div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="note" disabled>
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Ghi chú<br><small>Alt+C</small></p>
+                                </div>
+                                <div class="funtion-container text-center">
+                                    <button class="btn btn-light d-flex flex-column align-items-center justify-content-center function-btn" id="note" disabled>
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+                                    <p class="sub-text m-0">Ghi chú<br><small>Alt+C</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid w-100" id="prediction">
+                            <div class="container d-flex flex-row align-items-center w-100" id="prediction-header" style="gap: 0.5rem;">
+                                <p style="font-size: 0.8rem;">Chẩn đoán</p>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-button dropdown-toggle" id="predict-info" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Lần 3 | Chẩn đoán mới | BS Nguyễn Hùng
+                                    </button>
+                                    <ul class="dropdown-menu" id="predict-info-list" aria-labelledby="predict-info">
+                                        <li><a class="dropdown-item">Lần 1 | Chẩn đoán mới | BS Nguyễn Hùng</a></li>
+                                        <li><a class="dropdown-item">Lần 2 | Chẩn đoán mới | BS Nguyễn Hùng</a></li>
+                                    </ul>
+                                </div>
+                                <div class="spliter"></div>
+                                <p style="font-size: 0.8rem;">Dịch vụ</p>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-button dropdown-toggle" id="service-info" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        XA021 - XQuang chân
+                                    </button>
+                                    <ul class="dropdown-menu" id="service-info-list" aria-labelledby="service-info">
+                                        <li><a class="dropdown-item">XA021 - XQuang chân</a></li>
+                                        <li><a class="dropdown-item">XA021 - XQuang chân</a></li>
+                                    </ul>
+                                </div>
+                                <div class="spliter"></div>
+                                <p style="font-size: 0.8rem;">Mẫu KQ</p>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-button dropdown-toggle" id="sample-info" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        XA021 - XQuang chân
+                                    </button>
+                                    <ul class="dropdown-menu" id="sample-info-list" aria-labelledby="sample-info">
+                                        <li><a class="dropdown-item">XA021 - XQuang chân</a></li>
+                                        <li><a class="dropdown-item">XA021 - XQuang chân</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="container d-flex flex-row align-items-center" id="prediction-main" style="gap: 0.5rem;">
+                                <div class="info-container w-100">
+                                    <div class="container d-flex flex-column info">
+                                        <p>Kỹ thuật chụp: Chụp Xquang cột sống cổ thẳng nghiêng!</p>
+                                        <p>--Không thấy gẫy xẹp các đốt sống.</p>
+                                        <p>--Không thấy hẹp các khoảng liên đốt sống.</p>
+                                        <p>--Cấu trúc các đốt sống không thấy bất thường.</p>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <p>Hiện tại không thấy hình ảnh bất thường xương cột sống cổ trên phim</p>
+                                        <br>
+                                    </div>
+                                    <div class="container d-flex flex-row info">
+                                        <div class="upload-btn-wrapper align-items-center justify-content-center" style="padding-top: 1rem; padding-right: 1rem;">
+                                            <label class="btn-upload" for="fileInput" style="background-color: #ffffff; border-radius: 5px ;padding-left: 1rem; padding-right: 1rem;">
+                                                <i class="fa-solid fa-images"></i>
+                                                    Chọn ảnh
+                                            </label>
+                                            <input type="file" id="fileInput" name="myfile" accept="image/*" hidden>
+                                        </div>
+                                        <div style="border-left: 1px solid #000000;padding-top: 0.8rem; padding-bottom: 0.8rem;">
+                                            <div class="image-gallery" style="padding-left: 0.8rem;">
+                                                <div class="image-item">
+                                                  <img src="./img/X-ray 1.jpg" alt="X-ray 1">
+                                                  <div class="checkmark">✔</div>
+                                                </div>
+                                                <div class="image-item">
+                                                  <img src="./img/X-ray 2.png" alt="X-ray 2">
+                                                  <div class="checkmark">✔</div>
+                                                </div>
+                                                <div class="image-item">
+                                                  <img src="./img/X-ray 3.png" alt="X-ray 3">
+                                                  <div class="checkmark">✔</div>
+                                                </div>
+                                                <div class="image-item">
+                                                  <img src="./img/X-ray 4.png" alt="X-ray 4">
+                                                  <div class="checkmark">✔</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container d-flex flex-row info">
+                                        <div class="upload-btn-wrapper d-flex flex-column align-items-center" style="padding-top: 1rem; padding-right: 1rem;">
+                                            <button class="btn btn-primary">
+                                                <i class="fa fa-camera"></i> Chụp ảnh
+                                            </button>
+                                            <label class="btn-upload align-items-center" for="fileInput" style="background-color: #ffffff; border-radius: 5px ;padding-left: 1rem; padding-right: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; width: 100%;">
+                                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                                    Tải lên
+                                            </label>
+                                            <input type="file" id="fileInput" name="myfile" accept="image/*" hidden>
+                                            <label class="btn-upload align-items-center" for="fileInput" style="background-color: #ffffff; border-radius: 5px ;padding-left: 1rem; padding-right: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; width: 100%;">
+                                                <i class="fa-solid fa-gear"></i>
+                                                    Cấu hình
+                                            </label>
+                                        </div>
+                                        <div style="border-left: 1px solid #000000;padding-top: 0.8rem; padding-bottom: 0.8rem;">
+                                            <div class="image-gallery" style="padding-left: 0.8rem;">
+                                                <div class="image-item">
+                                                  <img src="./img/X-ray 5.png" alt="X-ray 5">
+                                                  <div class="checkmark">✔</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container d-flex flex-row align-items-center; gap: 0.5rem;" id="prediction-footer">
+                                <div class="filter-container">
+                                    <div class="filter-item">
+                                      <label>Người ký</label>
+                                      <select>
+                                        <option>BS Phạm Tuấn Tú</option>
+                                        <option>BS Nguyễn Văn A</option>
+                                      </select>
+                                    </div>
+                                
+                                    <div class="filter-item">
+                                      <label>Mã bệnh ID</label>
+                                      <select>
+                                        <option>A1234</option>
+                                        <option>B5678</option>
+                                      </select>
+                                    </div>
+                                
+                                    <div class="filter-item">
+                                      <label>Thẻ tag</label>
+                                      <select>
+                                        <option selected>Tag name</option>
+                                        <option>Tag 1</option>
+                                        <option>Tag 2</option>
+                                      </select>
+                                    </div>
+                                
+                                    <div class="filter-item">
+                                      <label>Người chụp</label>
+                                      <select>
+                                        <option>BS Phạm Tuấn Tú</option>
+                                        <option>BS Nguyễn Văn B</option>
+                                      </select>
+                                    </div>
+                                
+                                    <div class="filter-item">
+                                      <label>Y tá</label>
+                                      <select>
+                                        <option>Lê Minh Thúy</option>
+                                        <option>Nguyễn Thị C</option>
+                                      </select>
+                                    </div>
+                                
+                                    <div class="filter-item">
+                                      <label>Chẩn đoán trước</label>
+                                      <select>
+                                        <option>Cổ</option>
+                                        <option>Ngực</option>
+                                      </select>
+                                    </div>
+                                
+                                    <div class="filter-item">
+                                      <label>Giải phẫu</label>
+                                      <select>
+                                        <option>A1234</option>
+                                        <option>B5678</option>
+                                      </select>
+                                    </div>
+                                </div>
+                            </div>                               
+                        </div>
+                    </div>      
+                </div>    
+            </div>
+        </div>
+    </main>    
+    <script src="UI5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> 
+</body>
