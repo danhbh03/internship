@@ -23,9 +23,9 @@ return function (Container $container) {
             'db' => [
                     'host' => 'localhost',
                     'port' => '3307',
-                    'dbname' => 'bài tập thực tập', // Đổi thành tên database của bạn
+                    'dbname' => 'bài tập thực tập',
                     'user' => 'root',
-                    'pass' => '210903Danh',  // Để trống nếu dùng XAMPP
+                    'pass' => '210903Danh',
                     'charset' => 'utf8mb4',
                 ],
         ];
